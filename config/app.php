@@ -139,11 +139,11 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'genesis50\Providers\AppServiceProvider',
+		'genesis50\Providers\BusServiceProvider',
+		'genesis50\Providers\ConfigServiceProvider',
+		'genesis50\Providers\EventServiceProvider',
+		'genesis50\Providers\RouteServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 
 	],

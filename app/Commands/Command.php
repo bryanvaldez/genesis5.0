@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace genesis50\Commands;
 
 abstract class Command {
 

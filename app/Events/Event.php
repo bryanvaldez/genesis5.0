@@ -1,4 +1,4 @@
-<?php namespace App\Events;
+<?php namespace genesis50\Events;
 
 abstract class Event {
 

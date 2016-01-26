@@ -1,4 +1,4 @@
-<?php namespace App\Entities;
+<?php namespace genesis50\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 

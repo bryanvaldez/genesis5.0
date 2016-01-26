@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace genesis50\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
