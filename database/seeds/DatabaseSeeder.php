@@ -5,13 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
+	public function run() {
+
 		Model::unguard();
 
 		$this->truncateTables(array(
@@ -23,10 +18,13 @@ class DatabaseSeeder extends Seeder {
 		));
 
 		$this->call('UserTableSeeder');
+		$this->call('TicketTableSeeder');
+        $this->call('TicketVoteTableSeeder'); 
+        $this->call('TicketCommentTableSeeder'); 
 	}
 
-	private function truncateTables(array $tables)
-	{
+	private function truncateTables(array $tables) {
+
 		$this->checkForeignKeys(false);
 		
 		foreach ( $tables as $table )
@@ -38,8 +36,8 @@ class DatabaseSeeder extends Seeder {
 
 	}
 
-	private function checkForeignKeys($check)
-	{
+	private function checkForeignKeys($check) {
+
 		$check = $check ? '1' : '0';
 		DB::statement("SET FOREIGN_KEY_CHECKS = $check;"); 	
 	} 

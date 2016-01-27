@@ -1,37 +1,37 @@
 <?php
-use Illuminate\Database\Seeder;
+
 use genesis50\Entities\User;
 use Faker\Factory as Faker;
+use Faker\Generator;
 
-class UserTableSeeder extends Seeder{
+class UserTableSeeder extends BaseSeeder{
 
-	public function run()
-	{
-		$this->createAdmin();
-		$this->createUsers(50);
+	public function getModel(){
+
+		return new User();
 	}
 
-	private function createAdmin()
-	{
-		User::create([
+	public function getDummyData(Generator $faker, array $customValues = array()){
+
+		return [
+			'name'		=> 	$faker->name,
+			'email' 	=> 	$faker->email,
+			'password' 	=>	bcrypt('secret')
+		];
+	}
+
+	public function run() {
+		
+		$this->createAdmin();
+		$this->createMultiple(50);
+	}
+
+	private function createAdmin() {
+		
+		$this->create([
 			'name'		=> 	'bryan valdez',
 			'email' 	=> 	'bryan@gmail.com',
 			'password' 	=>	bcrypt('admin')
 		]);
 	}
-
-	private function createUsers($total)
-	{
-		$faker = Faker::create();
-
-		for($i = 1; $i <= $total;  $i++)
-		{
-			User::create([
-				'name'		=> 	$faker->name,
-				'email' 	=> 	$faker->email,
-				'password' 	=>	bcrypt('secret')				
-			]);
-		}
-	}
-
 }
