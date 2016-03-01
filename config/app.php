@@ -139,12 +139,24 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
+
 		'genesis50\Providers\AppServiceProvider',
 		'genesis50\Providers\BusServiceProvider',
 		'genesis50\Providers\ConfigServiceProvider',
 		'genesis50\Providers\EventServiceProvider',
 		'genesis50\Providers\RouteServiceProvider',
+		/*
+		 * Application Service Providers Collection HTML
+		 */
+		//'Collective\Html\HtmlServiceProvider',
+		'genesis50\Providers\HtmlServiceProvider',
+
+
+		/*
+		 * Servicio debugbar Agregado
+		 */
 		'Barryvdh\Debugbar\ServiceProvider',
+
 
 	],
 
@@ -194,6 +206,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+	    'Form' 		=> 'Collective\Html\FormFacade',
+	    'Html' 		=> 'Collective\Html\HtmlFacade',		
 
 	],
 

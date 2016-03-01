@@ -39,7 +39,7 @@ Route::get('/tutoriales', [
 
 ]);
 
-Route::get('/solicitud/(id)', [
+Route::get('/solicitud/{id}', [
 
 	'as'   	=> 	'tickets.details',
 	'uses' 	=> 	'TicketsController@details'
