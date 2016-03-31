@@ -1,12 +1,13 @@
-<?php namespace genesis50\Entities;
+<?php 
+
+namespace genesis50\Entities;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Entity implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
 
@@ -30,5 +31,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+
+	public function tickets()
+	{
+		return $this->hasMany(Ticket::getClass());
+	}
+
+	public function voted()
+	{
+		return $this->belongsToMany(Ticket::getClass(), 'ticket_votes');
+	}
 
 }

@@ -1,9 +1,18 @@
-<?php namespace genesis50\Entities;
+<?php 
 
-use Illuminate\Database\Eloquent\Model;
+namespace genesis50\Entities;
 
-class TicketVote extends Model {
+class TicketVote extends Entityt 
+{
+	public function user()
+	{
+		return $this->belongsTo(User::getClass());
+	}
 
-	//
+	public function ticket()
+	{
+		return $this->belongsTo(Ticket::getClass());
+	}
+	
 
 }

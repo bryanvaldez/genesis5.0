@@ -1,8 +1,23 @@
-<?php namespace genesis50\Entities;
+<?php 
 
-use Illuminate\Database\Eloquent\Model;
+namespace genesis50\Entities;
 
-class Ticket extends Model {
+class Ticket extends Entity 
+{
+	public function author()
+	{
+		return $this->belongsTo(User::getClass());
+	}
+
+	public function comments()
+	{
+		return $this->hasmany(ticketComment::getClass());
+	}
+
+	public function voters()
+	{
+		return $this->belongsToMany(User::getClass(), 'ticket_votes');
+	}
 
 	public function getOpenAttribute()
 	{	

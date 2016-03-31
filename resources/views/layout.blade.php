@@ -41,16 +41,17 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                {!! Html::menu('genesis50.menu') !!}
+                    {!! Html::menu('genesis50.menu') !!}
+                    @include('layout/login')
 
-                    <ul class="nav navbar-nav navbar-right">
+<!--                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Bryan Valdez <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Logout</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>
