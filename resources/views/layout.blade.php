@@ -8,7 +8,7 @@
     <title>TeachMe</title>
 
 
-    {!! Html::style('/assets/css/style.css') !!}
+    {!! Html::style('/assets/css/style.css') !!}s
 
 
 
