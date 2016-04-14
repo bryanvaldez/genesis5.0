@@ -1,6 +1,6 @@
 <?php namespace genesis50\Services;
 
-use genesis50\User;
+use genesis50\Entities\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

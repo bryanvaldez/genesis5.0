@@ -12,7 +12,7 @@
                 <span class="label label-info absolute highlight">{{ $ticket->status }}</span>
 
             </h2>
-            <p class="date-t"><span class="glyphicon glyphicon-time"></span>{{$ticket->created_at->format('d/m/y h:ia')}}</p>
+            <p class="date-t"><span class="glyphicon glyphicon-time"></span>{{$ticket->created_at->format('d/m/y h:ia')}} - {{ $ticket->author->name }}</p>
             </p>            
             <h4 class="label label-info news">
                 {{ count($ticket->voters) }} votos            </h4>
@@ -22,16 +22,21 @@
                 <span class="label label-info">{{ $user->name }}</span>
             @endforeach    
             </p>
-
-            <form method="POST" action="http://localhost/genesis5.0/public/votar/5" accept-charset="UTF-8"><input name="_token" type="hidden" value="VBIv3EWDAIQuLRW0cGwNQ4OsDKoRhnK2fAEF6UbQ">
-                <!--button type="submit" class="btn btn-primary">Votar</button-->
+            @if (! auth()->user()->hasVoted($ticket))
+            {!! Form::open(['route' => ['votes.submit', $ticket->id], 'method' => 'POST']) !!}
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-thumbs-up"></span> Votar
                 </button>
-            </form>
+            {!! Form::close() !!}
+            @else
+            {!! Form::open(['route' => ['votes.destroy', $ticket->id], 'method' => 'DELETE']) !!}
+                <button type="submit" class="btn-warning">
+                    <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
+                </button>
+            {!! Form::close() !!}
+            @endif
 
             <h3>Nuevo Comentario</h3>
-
 
             <form method="POST" action="http://localhost/genesis5.0/public/comentar/5" accept-charset="UTF-8"><input name="_token" type="hidden" value="VBIv3EWDAIQuLRW0cGwNQ4OsDKoRhnK2fAEF6UbQ">
                 <div class="form-group">

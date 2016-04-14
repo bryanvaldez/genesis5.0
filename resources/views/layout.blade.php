@@ -8,7 +8,7 @@
     <title>TeachMe</title>
 
 
-    {!! Html::style('/assets/css/style.css') !!}s
+    {!! Html::style('/assets/css/style.css') !!}
 
 
 
@@ -36,7 +36,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://duilio.me" target="_blank">duilio.me</a>
+                    <a class="navbar-brand" href="http://github.com/bryanvaldez" target="_blank">genesis</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -60,6 +60,8 @@
 
 @yield('content')
 
+    {!! Html::script('/assets/js/jquery-2.1.0.min.js') !!}
+    {!! Html::script('/assets/js/bootstrap.js') !!}
 <!-- Scripts 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
