@@ -2,6 +2,7 @@
 
 use genesis50\Http\Requests;
 use genesis50\Http\Controllers\Controller;
+use Illuminate\Auth\Guard;
 
 use Illuminate\Http\Request;
 use genesis50\Entities\Ticket;
@@ -79,8 +80,9 @@ class VotesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
-		dd('- voto '.$id);
+		$ticket = Ticket::findOrFail($id);
+		currentUser()->unvote($ticket);
+		return redirect()->back();
 	}
 
 	/**
@@ -89,13 +91,12 @@ class VotesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function submit($id)
+	public function submit($id, Guard $auth)
 	{
 		$ticket = Ticket::findOrFail($id);
-
-		dd($ticket);
-
+		//$data =  auth()->user()->vote($ticket);
 		currentUser()->vote($ticket);
+
 		return redirect()->back();
 	}
 

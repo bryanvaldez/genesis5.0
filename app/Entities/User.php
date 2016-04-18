@@ -40,7 +40,7 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 
 	public function voted()
 	{
-		return $this->belongsToMany(Ticket::getClass(), 'ticket_votes');
+		return $this->belongsToMany(Ticket::getClass(), 'ticket_votes')->withTimestamps();
 	}
 
 	public function hasVoted(Ticket $ticket)
@@ -54,7 +54,14 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 		if($this->hasvoted($ticket)) return false;
 
 		$this->voted()->attach($ticket);
-		
+		//El método attach() es sólo para muchos-a-muchos, 
+		//para otras relaciones existe save() y el associate()
+		return true; 
 	}
 
+	public function unvote(Ticket $ticket)
+	{
+		$this->voted()->detach($ticket);
+	}
 }
+ 

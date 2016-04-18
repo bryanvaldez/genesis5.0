@@ -52,7 +52,7 @@ class TicketsController extends Controller {
 	public function store(Request $request, Guard $auth)
 	{
 		$this->validate($request, [
-			'title'	=>	'required|max:120'
+			'title'		=>	'required|max:120'
 		]);
 
 		$ticket = $auth->user()->tickets()->create([

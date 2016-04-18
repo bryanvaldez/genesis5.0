@@ -21,7 +21,8 @@
 		],
 		"psr-4": {
 			"genesis50\\": "app/"
-		}
+		},
+		"files": ["app/helpers.php"]
 	},
 	"autoload-dev": {
 		"classmap": [
