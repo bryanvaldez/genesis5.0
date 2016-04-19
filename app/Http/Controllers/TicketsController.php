@@ -12,9 +12,28 @@ use Illuminate\Http\Request;
 
 class TicketsController extends Controller {
 
+	protected function selectTicketList()	
+	{
+		return Ticket::selectRaw(
+			'tickets.*, '
+			. '(select count(*) from ticket_comments where ticket_comments.ticket_id = tickets.id) as num_commnents,'
+			. '(select count(*) from ticket_votes where ticket_votes.ticket_id = tickets.id) as num_votes'
+		)->with('author');
+	}
+
+
 	public function latest()
 	{	
-		$tickets = Ticket::orderBy('created_at', 'DESC')->paginate(10);
+
+		// select t.*,	(select count(*) from ticket_comments c where c.ticket_id = t.id) as num_commnents,
+		// 			(select count(*) from ticket_votes v where v.ticket_id = t.id) as num_votes    
+		// from tickets t 
+		// where 1
+
+		$tickets = $this->selectTicketList()
+			->orderBy('created_at', 'DESC')
+			->paginate(20);
+
 		return view('tickets/list', compact('tickets'));
 	}
 	public function popular()
@@ -22,15 +41,25 @@ class TicketsController extends Controller {
 		$tickets = Ticket::all();
 		dd($tickets);
 		return view('tickets/list');
+
+		$tickets = $this->selectTicketList()
+			->orderBy('created_at', 'DESC')
+			->paginate(2);
 	}
 	public function open()
 	{
-		$tickets = Ticket::where('status', "open")->paginate(10);
+		$tickets = $this->selectTicketList()
+			->where('status', 'open')
+			->orderBy('created_at', 'DESC')
+			->paginate(20);
 		return view('tickets/list', compact('tickets'));		
 	}
 	public function closed()
 	{
-		$tickets = Ticket::where('status', "closed")->paginate(10);
+		$tickets = $this->selectTicketList()
+			->where('status', 'closed')
+			->orderBy('created_at', 'DESC')
+			->paginate(20);
 		return view('tickets/list', compact('tickets'));
 	}
 	public function details($id)

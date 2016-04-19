@@ -9,8 +9,6 @@
 
                 @include('tickets/partials/status', compact('ticket'))
 
-                <span class="label label-info absolute highlight">{{ $ticket->status }}</span>
-
             </h2>
 
             @if(Session::has('success'))
