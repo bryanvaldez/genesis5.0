@@ -9,67 +9,44 @@ use genesis50\Entities\Ticket;
 use genesis50\Entities\TicketComment;
 
 use Illuminate\Http\Request;
+use genesis50\Repositories\TicketRepository;
 
 class TicketsController extends Controller {
 
-	protected function selectTicketList()	
-	{
-		return Ticket::selectRaw(
-			'tickets.*, '
-			. '(select count(*) from ticket_comments where ticket_comments.ticket_id = tickets.id) as num_commnents,'
-			. '(select count(*) from ticket_votes where ticket_votes.ticket_id = tickets.id) as num_votes'
-		)->with('author');
-	}
+	/**
+	* @var TicketRepository
+	*/
+	private $ticketRepository;
 
+
+	public function __construct(TicketRepository $ticketRepository)
+	{
+		$this->ticketRepository = $ticketRepository;
+	}
 
 	public function latest()
 	{	
-
-		// select t.*,	(select count(*) from ticket_comments c where c.ticket_id = t.id) as num_commnents,
-		// 			(select count(*) from ticket_votes v where v.ticket_id = t.id) as num_votes    
-		// from tickets t 
-		// where 1
-
-		$tickets = $this->selectTicketList()
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
-
+		$tickets = $this->ticketRepository->paginateLatest();
 		return view('tickets/list', compact('tickets'));
 	}
 	public function popular()
 	{
-		$tickets = Ticket::all();
-		dd($tickets);
-		return view('tickets/list');
+		$tickets = Ticket::all(); dd($tickets);
 
-		$tickets = $this->selectTicketList()
-			->orderBy('created_at', 'DESC')
-			->paginate(2);
 	}
 	public function open()
 	{
-		$tickets = $this->selectTicketList()
-			->where('status', 'open')
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
+		$tickets = $this->ticketRepository->paginateOpen();
 		return view('tickets/list', compact('tickets'));		
 	}
 	public function closed()
 	{
-		$tickets = $this->selectTicketList()
-			->where('status', 'closed')
-			->orderBy('created_at', 'DESC')
-			->paginate(20);
+		$tickets = $this->ticketRepository->paginateClose();
 		return view('tickets/list', compact('tickets'));
 	}
 	public function details($id)
-	{
-		$ticket = Ticket::findOrFail($id);
-		// $comments = TicketComment::select('ticket_comments.*', 'users.name')
-		// 	->join('users', 'ticket_comments.user_id', '=', 'users.id')
-		// 	->where('ticket_id', $id)
-		// 	->get();
-		// return view('tickets/details', compact('ticket', 'comments'));
+	{	
+		$ticket = $this->ticketRepository->findOrFail($id);
 		return view('tickets/details', compact('ticket'));
 	}
 
