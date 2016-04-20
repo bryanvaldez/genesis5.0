@@ -4,8 +4,16 @@ namespace genesis50\Repositories;
 
 use genesis50\Entities\Ticket;
 
-class ticketRepository{
+
+class ticketRepository extends BaseRepository{
 	
+
+	public function getModel()
+	{
+		return new Ticket();
+	}
+
+
 	protected function selectTicketList()
 	{
 		return Ticket::selectRaw(
